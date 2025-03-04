@@ -28,7 +28,6 @@
  *  18   PA1    G: aux green
  *  19   PA2    B: aux blue
  *  20   PA3    CH: detect charging
- *              or BBY: boost bypass PFET
  *
  * BST EN enable the boost regulator and Op-Amp
  * DAC sets the current, max current depends on Vset voltage divider and Rsense
@@ -36,8 +35,6 @@
  *         and low value Rsense (high current range, pin high)
  * IN- NFET : pull up after BST enable to eliminate startup flash, pull down otherwise
  * CH senses the status of the onboard charger
- * BBY routes power around the boost converter in li-ion 3V mode
- *   (pin low = bypass, pin high = boost)
  * BATT LVL : Vbat * (100.0/(330+100))
  * LVB is for OTSM firmware, not used here
  */
@@ -80,11 +77,6 @@ enum CHANNEL_MODES {
 #define BST_ENABLE_PIN   PIN5_bp
 #define BST_ENABLE_PORT  PORTD_OUT
 
-// BST bypass
-#define USE_BST_BYPASS
-#define BST_BYPASS_PIN   PIN3_bp
-#define BST_BYPASS_PORT  PORTA_OUT
-
 // HDR
 // turns on HDR FET for the high current range
 #define HDR_ENABLE_PIN   PIN7_bp
@@ -109,8 +101,8 @@ enum CHANNEL_MODES {
 // AVR datasheet table 3.1 I/O Multiplexing, PA6 ADC0 = AIN26
 #define USE_VOLTAGE_DIVIDER    // use a dedicated pin, not VCC, because VCC input is regulated
 #define ADMUX_VOLTAGE_DIVIDER  ADC_MUXPOS_AIN26_gc
-#define DUAL_VOLTAGE_FLOOR     (21*dV)  // for AA/14500 boost drivers, don't indicate low voltage if below this level
-#define DUAL_VOLTAGE_LOW_LOW   ( 7*dV)  // the lower voltage range's danger zone 0.7 volts (NiMH)
+#define DUAL_VOLTAGE_FLOOR     (4*21) // for AA/14500 boost drivers, don't indicate low voltage if below this level
+#define DUAL_VOLTAGE_LOW_LOW   (4*7)  // the lower voltage range's danger zone 0.7 volts (NiMH)
 // don't use the default VDD converter
 // convert BATT LVL pin readings to FSM volt units
 #undef voltage_raw2cooked
@@ -141,9 +133,7 @@ inline void hwdef_setup() {
     VPORTA.DIR = PIN0_bm   // R
                | PIN1_bm   // G
                | PIN2_bm   // B
-               #ifdef USE_BST_BYPASS
-               | PIN3_bm   // BBY
-               #endif
+               //| PIN3_bm   // CH
                | PIN7_bm;  // HDR
     VPORTD.DIR = PIN5_bm   // EN
                | PIN6_bm   // DAC
@@ -153,10 +143,7 @@ inline void hwdef_setup() {
     //PORTA.PIN0CTRL = PORT_PULLUPEN_bm;  // R
     //PORTA.PIN1CTRL = PORT_PULLUPEN_bm;  // G
     //PORTA.PIN2CTRL = PORT_PULLUPEN_bm;  // B
-    #ifdef USE_BST_BYPASS
-    PORTA.PIN3CTRL = PORT_PULLUPEN_bm;  // BBY
-    BST_BYPASS_PORT |= (1 << BST_BYPASS_PIN);
-    #endif
+    //PORTA.PIN3CTRL = PORT_PULLUPEN_bm;  // CH
     PORTA.PIN4CTRL = PORT_PULLUPEN_bm;
     PORTA.PIN5CTRL = PORT_PULLUPEN_bm;
     //PORTA.PIN6CTRL = PORT_PULLUPEN_bm;  // BATT LVL
@@ -189,12 +176,6 @@ inline void hwdef_setup() {
     // TODO: instead of enabling the DAC at boot, pull pin down
     //       to generate a zero without spending power on the DAC
     //       (and do this in set_level_zero() too)
-
-    // TCA/TCB/TCD aren't being used, so turn them off
-    TCA0.SINGLE.CTRLA = 0;
-    TCB0.CTRLA = 0;
-    TCB1.CTRLA = 0;
-    TCD0.CTRLA = 0;
 
 }
 
