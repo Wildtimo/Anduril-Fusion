@@ -215,3 +215,5 @@
 // (but allow disabling this feature per build)
 #define USE_CHANNEL_PER_STROBE
 
+//allow setting the button led independently from aux. (6H in off and lockout)
+//#define USE_ALT_BUTTON_LED

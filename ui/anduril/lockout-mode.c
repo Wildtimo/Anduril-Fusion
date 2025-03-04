@@ -45,7 +45,14 @@ uint8_t lockout_state(Event event, uint16_t arg) {
             // redundant, sleep tick does the same thing
             // indicator_led_update(cfg.indicator_led_mode >> 2, 0);
         #elif defined(USE_AUX_RGB_LEDS)
-            rgb_led_update(cfg.rgb_led_lockout_mode, 0);
+              #ifdef USE_ALT_BUTTON_LED
+              rgb_led_update_default(cfg.rgb_led_lockout_mode, 0, 1);
+              #else
+              rgb_led_update(cfg.rgb_led_lockout_mode, 0);
+              #endif
+            #if defined(USE_ALT_BUTTON_LED)
+            button_led_set(button_led_off_mode);
+        #endif
         #endif
     }
 
@@ -56,7 +63,11 @@ uint8_t lockout_state(Event event, uint16_t arg) {
             // redundant, sleep tick does the same thing
             //indicator_led_update(cfg.indicator_led_mode >> 2, arg);
             #elif defined(USE_AUX_RGB_LEDS)
-            rgb_led_update(cfg.rgb_led_lockout_mode, arg);
+            #ifdef USE_ALT_BUTTON_LED
+            rgb_led_update_default(cfg.rgb_led_lockout_mode, arg, 1);
+            #else
+            rgb_led_update(cfg.rgb_led_lockout_mode, 0);
+            #endif
             #endif
         }
         return EVENT_HANDLED;
@@ -75,7 +86,11 @@ uint8_t lockout_state(Event event, uint16_t arg) {
         #if defined(USE_INDICATOR_LED)
         indicator_led_update(cfg.indicator_led_mode >> 2, arg);
         #elif defined(USE_AUX_RGB_LEDS)
-        rgb_led_update(cfg.rgb_led_lockout_mode, arg);
+          #ifdef USE_ALT_BUTTON_LED
+          rgb_led_update_default(cfg.rgb_led_lockout_mode, arg, 1);
+          #else
+          rgb_led_update(cfg.rgb_led_lockout_mode, 0);
+          #endif
         #endif
         return EVENT_HANDLED;
     }
@@ -136,6 +151,19 @@ uint8_t lockout_state(Event event, uint16_t arg) {
     }
     #endif  // if simple UI but not extended simple UI
 
+    #if defined(USE_ALT_BUTTON_LED)
+    // 8 clicks: rotate through button LED modes (0 = off, 1 = low, 2 = high) (lockout mode)
+    else if (event == EV_click6_hold_release) {
+        uint8_t mode = button_led_lockout_mode;
+        mode = (mode + 1) % 3;
+        button_led_lockout_mode = mode;
+        button_led_set(mode);
+        save_config();
+        blink_once();
+        return EVENT_HANDLED;
+    }
+    #endif
+
     #if defined(USE_INDICATOR_LED)
     // 7 clicks: rotate through indicator LED modes (lockout mode)
     else if (event == EV_7clicks) {
@@ -163,7 +191,11 @@ uint8_t lockout_state(Event event, uint16_t arg) {
         uint8_t mode = (cfg.rgb_led_lockout_mode >> 4) + 1;
         mode = mode % RGB_LED_NUM_PATTERNS;
         cfg.rgb_led_lockout_mode = (mode << 4) | (cfg.rgb_led_lockout_mode & 0x0f);
+        #ifdef USE_ALT_BUTTON_LED
+        rgb_led_update_default(cfg.rgb_led_lockout_mode, 0, 1);
+        #else
         rgb_led_update(cfg.rgb_led_lockout_mode, 0);
+        #endif
         save_config();
         blink_once();
         return EVENT_HANDLED;
@@ -177,7 +209,11 @@ uint8_t lockout_state(Event event, uint16_t arg) {
             cfg.rgb_led_lockout_mode = mode | (cfg.rgb_led_lockout_mode & 0xf0);
             //save_config();
         }
-        rgb_led_update(cfg.rgb_led_lockout_mode, arg);
+        #ifdef USE_ALT_BUTTON_LED
+        rgb_led_update_default(cfg.rgb_led_lockout_mode, arg, 1);
+        #else
+        rgb_led_update(cfg.rgb_led_lockout_mode, 0);
+        #endif
         return EVENT_HANDLED;
     }
     // 7H, release: save new color

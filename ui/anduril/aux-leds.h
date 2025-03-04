@@ -9,6 +9,11 @@ void indicator_led_update(uint8_t mode, uint8_t tick);
 #if defined(USE_AUX_RGB_LEDS) && defined(TICK_DURING_STANDBY)
 uint8_t setting_rgb_mode_now = 0;
 void rgb_led_update(uint8_t mode, uint16_t arg);
+
+#ifdef USE_ALT_BUTTON_LED
+void rgb_led_update_default(uint8_t mode, uint16_t arg, uint8_t islockout);
+#endif
+
 void rgb_led_voltage_readout(uint8_t bright);
 /*
  * 0: R
@@ -47,6 +52,24 @@ const PROGMEM uint8_t rgb_led_colors[] = {
 #define RGB_RAINBOW_SPEED 0x0f  // change color every 16 frames
 #endif
 #endif
+
+
+#ifdef USE_ALT_BUTTON_LED
+
+#ifndef BUTTON_LED_OFF_DEFAULT_MODE
+#define BUTTON_LED_OFF_DEFAULT_MODE 2  // 0 = off, 1 = low, 2 = high
+#endif
+
+#ifndef BUTTON_LED_LOCKOUT_DEFAULT_MODE
+#define BUTTON_LED_LOCKOUT_DEFAULT_MODE 1  // 0 = off, 1 = low, 2 = high
+#endif
+
+uint8_t button_led_off_mode = BUTTON_LED_OFF_DEFAULT_MODE;
+uint8_t button_led_lockout_mode = BUTTON_LED_LOCKOUT_DEFAULT_MODE;
+
+#endif
+
+
 
 //#define USE_OLD_BLINKING_INDICATOR
 //#define USE_FANCIER_BLINKING_INDICATOR

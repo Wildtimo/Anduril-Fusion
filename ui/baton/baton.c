@@ -1,43 +1,41 @@
-/*
- * Baton: Olight Baton-like UI for SpaghettiMonster.
- *
- * Copyright (C) 2017 Selene ToyKeeper
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
 
-#include "hwdef-Emisar_D4.h"
+#include "arch/mcu.h"
+
+#include "fsm/spaghetti-monster.h"
+
+#include "convoy/s21eB/hwdef.h"
+
 #define USE_LVP
+
 #define USE_THERMAL_REGULATION
+
 #define USE_DELAY_MS
-#include "spaghetti-monster.h"
 
-// FSM states
-uint8_t off_state(Event event, uint16_t arg);
-uint8_t steady_state(Event event, uint16_t arg);
-uint8_t lockout_state(Event event, uint16_t arg);
 
-// brightness control
-uint8_t memorized_level = 1;
-uint8_t actual_level = 0;
+
+
+
+#include "anduril/off-mode.c"
+#include "anduril/ramp-mode.c"
+#include "anduril/load-save-config.c"
+#include "anduril/config-mode.c"
+#include "anduril/aux-leds.c"
+#include "anduril/misc.c"
+
+
+
+
 #ifdef USE_THERMAL_REGULATION
-uint8_t target_level = 0;
+#include "anduril/tempcheck-mode.c"
 #endif
 
+
+
+
+
 // moon + ../../bin/level_calc.py 2 6 7135 18 10 150 FET 1 10 1500
-uint8_t pwm1_levels[] = { 3, 18, 110, 255, 255, 255,   0, };
-uint8_t pwm2_levels[] = { 0,  0,   0,   9,  58, 138, 255, };
+uint8_t PWM1_LEVELS[] = { 3, 18, 110, 255, 255, 255,   0, };
+uint8_t PWM2_LEVELS[] = { 0,  0,   0,   9,  58, 138, 255, };
 #define MAX_LEVEL (sizeof(pwm1_levels)-1)
 
 // set LED brightness

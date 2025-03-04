@@ -89,10 +89,27 @@ uint8_t voltage_to_rgb() {
     return pgm_read_byte(rgb_led_colors + color_num);
 }
 
+
+#ifdef USE_ALT_BUTTON_LED
+  void rgb_led_update(uint8_t mode, uint16_t arg) {
+  uint8_t islockout = -1;
+  rgb_led_update_default(mode, arg, islockout);  
+}
+#endif
+
+
+
 // do fancy stuff with the RGB aux LEDs
 // mode: 0bPPPPCCCC where PPPP is the pattern and CCCC is the color
 // arg: time slice number
+
+
+
+#ifdef USE_ALT_BUTTON_LED
+void rgb_led_update_default(uint8_t mode, uint16_t arg, uint8_t islockout) {
+#else
 void rgb_led_update(uint8_t mode, uint16_t arg) {
+#endif
     static uint8_t rainbow = 0;  // track state of rainbow mode
     static uint8_t frame = 0;  // track state of animation mode
 
@@ -168,35 +185,60 @@ void rgb_led_update(uint8_t mode, uint16_t arg) {
         frame = (frame + 1) % sizeof(animation);
         pattern = animation[frame];
     }
-    uint8_t result;
-    #ifdef USE_BUTTON_LED
-    uint8_t button_led_result;
+uint8_t result;
+#ifdef USE_BUTTON_LED
+uint8_t button_led_result;
+#endif
+
+// Determine the pattern
+switch (pattern) {
+    case 0:  // off
+        result = 0;
+        #ifdef USE_BUTTON_LED
+        button_led_result = 0;
+        #endif
+        break;
+    case 1:  // low
+        result = actual_color;
+        #ifdef USE_BUTTON_LED
+        button_led_result = 1;
+        #endif
+        break;
+    default:  // high
+        result = (actual_color << 1);
+        #ifdef USE_BUTTON_LED
+        button_led_result = 2;
+        #endif
+        break;
+}
+
+// Set the RGB LED color
+rgb_led_set(result);
+
+// Check if both USE_BUTTON_LED and USE_ALT_BUTTON_LED are defined to run the button LED logic
+    #ifdef USE_ALT_BUTTON_LED
+        if (islockout == -1) {
+            // Single-line comment block for lockout = -1
+            button_led_set(button_led_result);
+        } else if (islockout == 0) {
+            // Two-line comment block for lockout = 0 (off mode)
+            button_led_set(button_led_off_mode);
+        } else if (islockout == 1) {
+            // Three-line comment block for lockout = 1 (lockout mode)
+            button_led_set(button_led_lockout_mode);
+        }
     #endif
-    switch (pattern) {
-        case 0:  // off
-            result = 0;
-            #ifdef USE_BUTTON_LED
-            button_led_result = 0;
-            #endif
-            break;
-        case 1:  // low
-            result = actual_color;
-            #ifdef USE_BUTTON_LED
-            button_led_result = 1;
-            #endif
-            break;
-        default:  // high
-            result = (actual_color << 1);
-            #ifdef USE_BUTTON_LED
-            button_led_result = 2;
-            #endif
-            break;
-    }
-    rgb_led_set(result);
-    #ifdef USE_BUTTON_LED
+
+#ifdef USE_BUTTON_LED
+    #ifndef USE_ALT_BUTTON_LED
     button_led_set(button_led_result);
     #endif
+#endif
+
+
 }
+
+
 
 void rgb_led_voltage_readout(uint8_t bright) {
     uint8_t color = voltage_to_rgb();

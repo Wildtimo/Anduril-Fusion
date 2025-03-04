@@ -102,6 +102,13 @@ typedef struct Config {
     #ifdef USE_INDICATOR_LED
         uint8_t indicator_led_mode;
     #endif
+    
+    #ifdef USE_ALT_BUTTON_LED
+        uint8_t button_led_off_mode;
+        uint8_t button_led_lockout_mode;
+    #endif
+    
+    
     #ifdef USE_AUX_RGB_LEDS
         uint8_t rgb_led_off_mode;
         uint8_t rgb_led_lockout_mode;

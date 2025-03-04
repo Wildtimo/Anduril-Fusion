@@ -145,6 +145,14 @@ Config cfg = {
         // modes are: 0=off, 1=low, 2=high, 3=blinking (if TICK_DURING_STANDBY enabled)
         .indicator_led_mode = INDICATOR_LED_DEFAULT_MODE,
     #endif
+    
+    #ifdef USE_ALT_BUTTON_LED
+    .button_led_off_mode = BUTTON_LED_OFF_DEFAULT_MODE, // Define a sensible default
+    .button_led_lockout_mode = BUTTON_LED_LOCKOUT_DEFAULT_MODE, // Define a sensible default
+    #endif
+    
+    
+    
     #ifdef USE_AUX_RGB_LEDS
         .rgb_led_off_mode = RGB_LED_OFF_DEFAULT,
         .rgb_led_lockout_mode = RGB_LED_LOCKOUT_DEFAULT,

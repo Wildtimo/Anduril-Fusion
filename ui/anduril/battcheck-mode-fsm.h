@@ -9,7 +9,7 @@
     // show voltage colors for a few seconds after going to standby
     #define USE_POST_OFF_VOLTAGE
     #ifndef DEFAULT_POST_OFF_VOLTAGE_SECONDS
-        #define DEFAULT_POST_OFF_VOLTAGE_SECONDS  4
+        #define DEFAULT_POST_OFF_VOLTAGE_SECONDS  0
     #endif
     #ifndef POST_OFF_VOLTAGE_BRIGHTNESS
         // level at which to switch from low to high aux brightness

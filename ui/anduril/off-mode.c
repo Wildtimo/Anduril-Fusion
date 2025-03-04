@@ -36,6 +36,13 @@ uint8_t off_state(Event event, uint16_t arg) {
         // redundant, sleep tick does the same thing
         //rgb_led_update(cfg.rgb_led_off_mode, 0);
         #endif
+        
+       
+        
+        #if defined(USE_ALT_BUTTON_LED)
+        button_led_set(button_led_off_mode);
+        #endif        
+        
         #ifdef USE_SUNSET_TIMER
         sunset_timer = 0;  // needs a reset in case previous timer was aborted
         #endif
@@ -78,7 +85,11 @@ uint8_t off_state(Event event, uint16_t arg) {
         #ifdef USE_INDICATOR_LED
         indicator_led_update(cfg.indicator_led_mode & 0x03, arg);
         #elif defined(USE_AUX_RGB_LEDS)
-        rgb_led_update(cfg.rgb_led_off_mode, arg);
+          #ifdef USE_ALT_BUTTON_LED
+          rgb_led_update_default(cfg.rgb_led_off_mode, arg, 0);
+          #else
+          rgb_led_update(cfg.rgb_led_off_mode, 0);
+          #endif
         #endif
 
         #ifdef USE_AUTOLOCK
@@ -264,6 +275,27 @@ uint8_t off_state(Event event, uint16_t arg) {
     #endif  // ifndef USE_EXTENDED_SIMPLE_UI
     #endif  // ifdef USE_SIMPLE_UI
 
+
+
+
+
+
+    #if defined(USE_ALT_BUTTON_LED)
+    // 6 hold click: rotate through button LED modes (0 = off, 1 = low, 2 = high)
+    else if (event == EV_click6_hold_release) {
+        uint8_t mode = button_led_off_mode;
+        mode = (mode + 1) % 3;
+        button_led_off_mode = mode;
+        button_led_set(mode);
+        save_config();
+        blink_once();
+        return EVENT_HANDLED;
+    }
+    #endif
+
+
+
+
     #ifdef USE_INDICATOR_LED
     // 7 clicks: change indicator LED mode
     else if (event == EV_7clicks) {
@@ -288,7 +320,13 @@ uint8_t off_state(Event event, uint16_t arg) {
         uint8_t mode = (cfg.rgb_led_off_mode >> 4) + 1;
         mode = mode % RGB_LED_NUM_PATTERNS;
         cfg.rgb_led_off_mode = (mode << 4) | (cfg.rgb_led_off_mode & 0x0f);
+        
+        #ifdef USE_ALT_BUTTON_LED
+        rgb_led_update_default(cfg.rgb_led_off_mode, 0, 0);
+        #else
         rgb_led_update(cfg.rgb_led_off_mode, 0);
+        #endif
+      
         save_config();
         blink_once();
         return EVENT_HANDLED;
@@ -302,7 +340,11 @@ uint8_t off_state(Event event, uint16_t arg) {
             cfg.rgb_led_off_mode = mode | (cfg.rgb_led_off_mode & 0xf0);
             //save_config();
         }
-        rgb_led_update(cfg.rgb_led_off_mode, arg);
+        #ifdef USE_ALT_BUTTON_LED
+          rgb_led_update_default(cfg.rgb_led_off_mode, arg, 0);
+          #else
+          rgb_led_update(cfg.rgb_led_off_mode, 0);
+        #endif
         return EVENT_HANDLED;
     }
     else if (event == EV_click7_hold_release) {
