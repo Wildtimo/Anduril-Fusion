@@ -20,7 +20,6 @@ function main {
 
     # TODO: detect UI from $0 and/or $*
     UI=anduril
-
     mkdir -p hex
 
     make-version-h  # generate a version.h file
