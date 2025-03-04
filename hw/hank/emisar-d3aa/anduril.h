@@ -51,21 +51,18 @@
 #define RAMP_SMOOTH_FLOOR    1
 #define RAMP_SMOOTH_CEIL     130  // 50% power
 // 10 30 [50] 70 90 110 130
-#define RAMP_DISCRETE_FLOOR  20
+#define RAMP_DISCRETE_FLOOR  10
 #define RAMP_DISCRETE_CEIL   130
 #define RAMP_DISCRETE_STEPS  7
 
 // 10 [40] 70 100 130
-#define SIMPLE_UI_FLOOR      20
-#define SIMPLE_UI_CEIL       100
-#define SIMPLE_UI_STEPS      3
+#define SIMPLE_UI_FLOOR      10
+#define SIMPLE_UI_CEIL       130
+#define SIMPLE_UI_STEPS      5
 
 // don't blink mid-ramp
 #ifdef BLINK_AT_RAMP_MIDDLE
 #undef BLINK_AT_RAMP_MIDDLE
-#endif
-#ifdef BLINK_AT_RAMP_CEIL
-#undef BLINK_AT_RAMP_CEIL
 #endif
 
 // thermal config
@@ -94,10 +91,13 @@
 #define USE_CONFIG_COLORS
 
 // blink numbers on the main LEDs by default (but allow user to change it)
-#define DEFAULT_BLINK_CHANNEL  CM_AUXGRN
+#define DEFAULT_BLINK_CHANNEL  CM_MAIN
 
 // use aux red + aux blue for police strobe
-
+#define USE_POLICE_COLOR_STROBE_MODE
+#define POLICE_STROBE_USES_AUX
+#define POLICE_COLOR_STROBE_CH1        CM_AUXRED
+#define POLICE_COLOR_STROBE_CH2        CM_AUXBLU
 
 // the aux LEDs are front-facing, so turn them off while main LEDs are on
 #ifdef USE_INDICATOR_LED_WHILE_RAMPING
