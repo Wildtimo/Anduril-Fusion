@@ -1,4 +1,4 @@
-Models: 72
+Models: 90
 
 Model     MCU         Name
 -----     ---         ----
@@ -18,10 +18,12 @@ Model     MCU         Name
 0134      attiny1634  hank-emisar-d4sv2-219
 0135      attiny1634  hank-emisar-2ch
 0136      attiny1634  hank-emisar-2ch-fet
+0137      attiny1634 hank-emisar-2ch-fet-joined
 0141      attiny85    hank-emisar-d18
 0142      attiny85    hank-emisar-d18-219
 0143      attiny1634  hank-noctigon-m44
 0151      attiny1634  hank-emisar-d4k-3ch
+0161      avr32dd20 hank-emisar-d3aa
 0211      attiny1634  hank-noctigon-kr4
 0212      attiny1634  hank-noctigon-kr4-nofet
 0213      attiny1634  hank-noctigon-kr4-219
@@ -55,6 +57,7 @@ Model     MCU         Name
 0421      attiny85    fireflies-pl47
 0422      attiny85    fireflies-pl47-219
 0423      attiny85    fireflies-pl47g2
+0424      attiny85 fireflies-pl47g2-219
 0441      attiny85    fireflies-e01
 0443      attiny1634  fireflies-lume1-2020       (E07X, E12R, NOV-mu, etc)
 0444      attiny1634  fireflies-lume1-2020-nofet (T9R, T1R, etc)
@@ -74,6 +77,7 @@ Model     MCU         Name
 0623      attiny1616  sofirn-lt1s-pro
 0631      attiny1616  sofirn-sp10-pro
 0632      attiny1616  sofirn-sc21-pro
+0712      attiny1616 wurkkos-ts10-rgbaux-lowfet
 0713      attiny1616  wurkkos-ts10-rgbaux
 0714      attiny1616  wurkkos-ts10
 0715      attiny1616  wurkkos-ts25 (may need 0716 / 0717 on some models)
