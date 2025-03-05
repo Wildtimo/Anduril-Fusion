@@ -36,13 +36,9 @@ uint8_t off_state(Event event, uint16_t arg) {
         // redundant, sleep tick does the same thing
         //rgb_led_update(cfg.rgb_led_off_mode, 0);
         #endif
-        
-       
-        
         #if defined(USE_ALT_BUTTON_LED)
         button_led_set(button_led_off_mode);
         #endif        
-        
         #ifdef USE_SUNSET_TIMER
         sunset_timer = 0;  // needs a reset in case previous timer was aborted
         #endif
@@ -88,7 +84,7 @@ uint8_t off_state(Event event, uint16_t arg) {
           #ifdef USE_ALT_BUTTON_LED
           rgb_led_update_default(cfg.rgb_led_off_mode, arg, 0);
           #else
-          rgb_led_update(cfg.rgb_led_off_mode, 0);
+          rgb_led_update(cfg.rgb_led_off_mode, arg);
           #endif
         #endif
 
@@ -343,7 +339,7 @@ uint8_t off_state(Event event, uint16_t arg) {
         #ifdef USE_ALT_BUTTON_LED
           rgb_led_update_default(cfg.rgb_led_off_mode, arg, 0);
           #else
-          rgb_led_update(cfg.rgb_led_off_mode, 0);
+          rgb_led_update(cfg.rgb_led_off_mode, arg);
         #endif
         return EVENT_HANDLED;
     }

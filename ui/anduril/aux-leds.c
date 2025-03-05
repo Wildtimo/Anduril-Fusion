@@ -92,7 +92,7 @@ uint8_t voltage_to_rgb() {
 
 #ifdef USE_ALT_BUTTON_LED
   void rgb_led_update(uint8_t mode, uint16_t arg) {
-  uint8_t islockout = -1;
+  uint8_t islockout = 3;
   rgb_led_update_default(mode, arg, islockout);  
 }
 #endif
@@ -157,6 +157,7 @@ void rgb_led_update(uint8_t mode, uint16_t arg) {
         rainbow = (rainbow + 1 + pseudo_rand() % 5) % 6;
         actual_color = pgm_read_byte(colors + rainbow);
     }
+
     else if (color == 8) {  // rainbow
         uint8_t speed = 0x03;  // awake speed
         if (go_to_standby) speed = RGB_RAINBOW_SPEED;  // asleep speed
@@ -210,24 +211,32 @@ switch (pattern) {
         button_led_result = 2;
         #endif
         break;
+    case 3:  // blinking
+        result = (actual_color << 1);    
+        #ifdef USE_BUTTON_LED
+        button_led_result = 3;
+        #endif
+        break;
+        
+        
+        
 }
 
 // Set the RGB LED color
 rgb_led_set(result);
 
 // Check if both USE_BUTTON_LED and USE_ALT_BUTTON_LED are defined to run the button LED logic
+#ifdef USE_BUTTON_LED
     #ifdef USE_ALT_BUTTON_LED
-        if (islockout == -1) {
-            // Single-line comment block for lockout = -1
+        if (islockout == 3) {            
             button_led_set(button_led_result);
-        } else if (islockout == 0) {
-            // Two-line comment block for lockout = 0 (off mode)
+        } else if (islockout == 0) {            
             button_led_set(button_led_off_mode);
-        } else if (islockout == 1) {
-            // Three-line comment block for lockout = 1 (lockout mode)
+        } else if (islockout == 1) {            
             button_led_set(button_led_lockout_mode);
         }
     #endif
+#endif
 
 #ifdef USE_BUTTON_LED
     #ifndef USE_ALT_BUTTON_LED
