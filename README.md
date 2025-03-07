@@ -1,6 +1,6 @@
-# Anduril Flashlight Firmware + FSM Flashlight UI Toolkit convoy fork
+# Anduril Flashlight Firmware + convoy + lume1/x1 + ALT_BUTTON_LED (optional)
 
-This fork includes the latest anduril version (d3aa support) + convoy s21e + lume1 drivers.
+This fork includes the latest anduril version (d3aa support) + convoy s21e + lume1x1 drivers.
 
 This fork includes an additional Anduril feature for lights with USE_AUX_RGB_LEDS and USE_BUTTON_LED.
 
