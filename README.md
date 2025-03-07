@@ -1,13 +1,21 @@
-# Anduril Flashlight Firmware + FSM Flashlight UI Toolkit
+# Anduril Flashlight Firmware + FSM Flashlight UI Toolkit convoy fork
 
-Anduril is a user interface for flashlights.  It is written with FSM, a UI
-toolkit for flashlights.
+This fork includes the latest anduril version (d3aa support) + convoy s21e + lume1 drivers.
 
-What is FSM?  The "SM" means "Spaghetti Monster", and the "F" can be any F word
-you like, such as "Flashlight" or whatever suits your mood.  FSM also means
-"Finite State Machine", which is the type of abstraction used for defining user
-interfaces.  It is like a flowchart turned into executable code.
+This fork includes an additional Anduril feature for lights with USE_AUX_RGB_LEDS and USE_BUTTON_LED.
 
+Alternate Button LED Control
+With this feature, you can control the button LED separately from the AUX RGB LEDs. For example, you can turn off the AUX RGB LEDs in lockout mode while keeping the button LED on.
+
+How to Enable:
+Define the following in your anduril.h configuration:
+
+#define USE_ALT_BUTTON_LED // requires both USE_AUX_RGB_LEDS and USE_BUTTON_LED to be defined as well
+
+How to Use:
+6H (Six clicks and hold) toggles the button LED mode.
+The button LED state is saved separately for both OFF mode and lockout mode, allowing independent control in each state.
+This provides more customization for lights with both AUX RGB and button LEDs.
 
 ## Using Anduril
 
