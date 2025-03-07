@@ -88,13 +88,10 @@
 // too big, turn off extra features
 #undef USE_TACTICAL_MODE
 //#undef USE_MOMENTARY_MODE
-
-//#define USE_SOS_MODE
-//#define USE_SOS_MODE_IN_BLINKY_GROUP  // put SOS in the blinkies mode group
-
-//#undef USE_BEACON_MODE
-
+#undef USE_SOS_MODE
+#undef USE_BEACON_MODE
 //#undef USE_VERSION_CHECK
+
 
 
 //blinkies
