@@ -1,4 +1,4 @@
-// Mateminco MT35 Mini / Astrolux  FT03
+// Mateminco MT35 Mini / Astrolux  FT03 (modded for convoy s21e 8/6amp fet)
 // Copyright (C) 2022-2023 (original author TBD), Selene ToyKeeper
 // SPDX-License-Identifier: GPL-3.0-or-later
 #pragma once
@@ -19,12 +19,6 @@
 // level_calc.py log 2 150 7135 1 1 120 FET 1 10 2000
 #define PWM1_LEVELS 1,1,1,2,2,2,2,2,3,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,7,7,7,8,8,9,9,10,10,11,11,12,13,13,14,15,16,17,17,18,19,20,22,23,24,25,27,28,30,31,33,35,36,38,40,42,45,47,50,52,55,58,61,64,68,71,75,79,83,87,92,97,102,107,113,119,125,132,139,146,154,162,171,180,189,199,209,220,232,244,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,0
 #define PWM2_LEVELS 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,3,4,5,6,7,8,10,11,12,14,15,17,19,21,23,25,27,29,31,34,37,39,42,45,49,52,56,59,63,67,72,76,81,86,92,98,103,110,116,123,131,138,146,155,164,173,183,194,205,216,229,241,255
-
-
-
-
-
-
 
 
 
@@ -57,7 +51,7 @@
 
 // this light should be fine running a bit hotter than most
 #undef DEFAULT_THERM_CEIL
-#define DEFAULT_THERM_CEIL 45
+#define DEFAULT_THERM_CEIL 50
 
 // stop panicking at ~40% power
 #define THERM_FASTER_LEVEL 120
@@ -66,7 +60,7 @@
 
 #define DEFAULT_2C_STYLE 1  // enable 2 click turbo (Anduril 1 style)
 
-
+#define USE_VERSION_CHECK
 // don't blink while ramping
 #ifdef BLINK_AT_RAMP_FLOOR
 #undef BLINK_AT_RAMP_FLOOR
@@ -81,21 +75,31 @@
 
 #define USE_SIMPLE_UI_RAMPING_TOGGLE
 
-#define DEFAULT_BLINK_CHANNEL  CM_AUX
+//reboot bug if blink on button so don't enable changing it from main
+//#define DEFAULT_BLINK_CHANNEL  CM_MAIN
 
-#define USE_SMOOTH_STEPS
+//does not look good on this driver and takes alot of space
+//#define USE_SMOOTH_STEPS
+
+#define USE_EXTRA_BATTCHECK_DIGIT
 
 #define USE_SOFT_FACTORY_RESET
 
 // too big, turn off extra features
 #undef USE_TACTICAL_MODE
-#undef USE_SOS_MODE
-#undef USE_BEACON_MODE
 //#undef USE_MOMENTARY_MODE
 
+//#define USE_SOS_MODE
+//#define USE_SOS_MODE_IN_BLINKY_GROUP  // put SOS in the blinkies mode group
+
+//#undef USE_BEACON_MODE
+
+//#undef USE_VERSION_CHECK
+
+
 //blinkies
-#undef USE_BIKE_FLASHER_MODE
+//#undef USE_BIKE_FLASHER_MODE
 //#undef USE_PARTY_STROBE_MODE
 //#undef USE_TACTICAL_STROBE_MODE
-#undef USE_LIGHTNING_MODE
+//#undef USE_LIGHTNING_MODE
 //#undef USE_CANDLE_MODE
