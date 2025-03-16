@@ -32,4 +32,4 @@
 #undef SIMPLE_UI_STEPS
 #endif
 
-//#define USE_ALT_BUTTON_LED
+#define USE_ALT_BUTTON_LED
