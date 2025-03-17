@@ -49,7 +49,7 @@ uint8_t lockout_state(Event event, uint16_t arg) {
         #elif defined(USE_AUX_RGB_LEDS)
             #ifdef USE_ALT_BUTTON_LED
                 rgb_led_update_default(cfg.rgb_led_lockout_mode, 0, 1);
-                button_led_set(cfg.button_led_off_mode);
+                button_led_set(cfg.button_led_lockout_mode);
             #else
                 rgb_led_update(cfg.rgb_led_lockout_mode, 0);
             #endif
