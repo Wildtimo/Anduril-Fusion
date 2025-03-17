@@ -222,10 +222,10 @@ rgb_led_set(result);
             button_led_set(button_led_result);
         } else if (islockout == 0) {
             // Two-line comment block for lockout = 0 (off mode)
-            button_led_set(button_led_off_mode);
+            button_led_set(cfg.button_led_off_mode);
         } else if (islockout == 1) {
             // Three-line comment block for lockout = 1 (lockout mode)
-            button_led_set(button_led_lockout_mode);
+            button_led_set(cfg.button_led_lockout_mode);
         }
     #endif
 

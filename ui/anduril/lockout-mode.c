@@ -49,7 +49,7 @@ uint8_t lockout_state(Event event, uint16_t arg) {
         #elif defined(USE_AUX_RGB_LEDS)
             #ifdef USE_ALT_BUTTON_LED
                 rgb_led_update_default(cfg.rgb_led_lockout_mode, 0, 1);
-                button_led_set(button_led_off_mode);
+                button_led_set(cfg.button_led_off_mode);
             #else
                 rgb_led_update(cfg.rgb_led_lockout_mode, 0);
             #endif
@@ -154,9 +154,9 @@ uint8_t lockout_state(Event event, uint16_t arg) {
     #if defined(USE_ALT_BUTTON_LED)
     // 6 clickHold on realease: rotate through button LED modes (0 = off, 1 = low, 2 = high) (lockout mode)
     else if (event == EV_click6_hold_release) {
-        uint8_t mode = button_led_lockout_mode;
+        uint8_t mode = cfg.button_led_lockout_mode;
         mode = (mode + 1) % 3;
-        button_led_lockout_mode = mode;
+        cfg.button_led_lockout_mode = mode;
         button_led_set(mode);
         save_config();
         blink_once();

@@ -37,7 +37,7 @@ uint8_t off_state(Event event, uint16_t arg) {
         //rgb_led_update(cfg.rgb_led_off_mode, 0);
         #endif
         #if defined(USE_ALT_BUTTON_LED)
-        button_led_set(button_led_off_mode);
+        button_led_set(cfg.button_led_off_mode);
         #endif        
         #ifdef USE_SUNSET_TIMER
         sunset_timer = 0;  // needs a reset in case previous timer was aborted
@@ -236,6 +236,7 @@ uint8_t off_state(Event event, uint16_t arg) {
     // 13 clicks and hold the last click: invoke factory reset (reboot)
     else if (event == EV_click13_hold) {
         reboot();
+        //factory_reset();
         return EVENT_HANDLED;
     }
     #endif
@@ -279,9 +280,9 @@ uint8_t off_state(Event event, uint16_t arg) {
     #if defined(USE_ALT_BUTTON_LED)
     // 6 hold click: rotate through button LED modes (0 = off, 1 = low, 2 = high)
     else if (event == EV_click6_hold_release) {
-        uint8_t mode = button_led_off_mode;
+        uint8_t mode = cfg.button_led_off_mode;
         mode = (mode + 1) % 3;
-        button_led_off_mode = mode;
+        cfg.button_led_off_mode = mode;
         button_led_set(mode);
         save_config();
         blink_once();
