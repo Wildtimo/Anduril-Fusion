@@ -30,7 +30,7 @@
 */
 
 
-#define DEFAULT_LEVEL       46
+#define DEFAULT_LEVEL       95
 #define MAX_1x7135          52
 #define HALFSPEED_LEVEL     20
 #define QUARTERSPEED_LEVEL  10
