@@ -37,12 +37,12 @@
 
 #define RAMP_SMOOTH_FLOOR    1
 #define RAMP_SMOOTH_CEIL     130
-// 20 38 56 [75] 93 111 130
-#define RAMP_DISCRETE_FLOOR  20
-#define RAMP_DISCRETE_CEIL   130
-#define RAMP_DISCRETE_STEPS  7
+// 15 45 75 [95] 125
+#define RAMP_DISCRETE_FLOOR  15
+#define RAMP_DISCRETE_CEIL   125
+#define RAMP_DISCRETE_STEPS  5
 
-// safe limit ~33% power
+
 #define SIMPLE_UI_FLOOR  20
 #define SIMPLE_UI_CEIL   100
 #define SIMPLE_UI_STEPS  3
