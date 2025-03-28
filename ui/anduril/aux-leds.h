@@ -38,14 +38,24 @@ const PROGMEM uint8_t rgb_led_colors[] = {
 };
 // intentionally 1 higher than total modes, to make "voltage" easier to reach
 // (at Hank's request)
-#define RGB_LED_NUM_COLORS 11
+#ifdef USE_ALT_AUX_MODES
+const uint8_t RGB_LED_NUM_COLORS = 11
+    #ifdef USE_BUTTON_LED
+    +1
+    #endif
+    ;
+#else
+    #define RGB_LED_NUM_COLORS 11
+#endif
+
+
 #define RGB_LED_NUM_PATTERNS 4
 #ifndef RGB_LED_OFF_DEFAULT
-#define RGB_LED_OFF_DEFAULT 0x19  // low, voltage
+#define RGB_LED_OFF_DEFAULT 0x22  // low, voltage
 //#define RGB_LED_OFF_DEFAULT 0x18  // low, rainbow
 #endif
 #ifndef RGB_LED_LOCKOUT_DEFAULT
-#define RGB_LED_LOCKOUT_DEFAULT 0x39  // blinking, voltage
+#define RGB_LED_LOCKOUT_DEFAULT 0x12  // blinking, voltage
 //#define RGB_LED_LOCKOUT_DEFAULT 0x37  // blinking, disco
 #endif
 #ifndef RGB_RAINBOW_SPEED
