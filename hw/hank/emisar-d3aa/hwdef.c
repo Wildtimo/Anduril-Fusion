@@ -161,15 +161,7 @@ void detect_weak_battery() {
     }
     set_level(0);
 
-if ((crit_voltage == DUAL_VOLTAGE_LOW_LOW) && (ramp_level_hard_limit == 0)) {
-    // if aa votage and did not trigger sag test
-    delay_4ms(300/4);
-    blink_once();
 
-    // Set a hard limit that effectively allows max AA power so we can't ramp too far past driver limit on aa
-    ramp_level_hard_limit = 110;
-}
-    
     // Blink again if not in full-power mode:
     // - 1 blink total: Strong Li-ion cell, full power enabled
     // - 2 blinks: Strong AA cell, max AA power enabled
@@ -183,6 +175,15 @@ if ((crit_voltage == DUAL_VOLTAGE_LOW_LOW) && (ramp_level_hard_limit == 0)) {
         blink_once();
     }
 
+if ((crit_voltage == DUAL_VOLTAGE_LOW_LOW) && (ramp_level_hard_limit == 0)) {
+    // if aa votage and did not trigger sag test
+    delay_4ms(300/4);
+    blink_once();
+
+    // Set a hard limit that effectively allows max AA power so we can't ramp too far past driver limit on aa
+    ramp_level_hard_limit = 110;
+}
+    
     #ifdef USE_WEAK_BATTERY_PROTECTION_READOUT
     // this numeric display isn't really needed by default,
     // but the code remains in case anyone wants to use it
