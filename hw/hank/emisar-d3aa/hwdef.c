@@ -181,7 +181,7 @@ if ((crit_voltage == DUAL_VOLTAGE_LOW_LOW) && (ramp_level_hard_limit == 0)) {
     blink_once();
 
     // Set a hard limit that effectively allows max AA power so we can't ramp too far past driver limit on aa
-    ramp_level_hard_limit = 110;
+    ramp_level_hard_limit = 100;
 }
     
     #ifdef USE_WEAK_BATTERY_PROTECTION_READOUT
