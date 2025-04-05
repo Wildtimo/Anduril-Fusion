@@ -32,4 +32,8 @@
 #undef SIMPLE_UI_STEPS
 #endif
 
-#define USE_ALT_BUTTON_LED
+// adds 6H to change button led
+#define USE_ALT_BUTTON_LED 
+
+// adds extra blank rgb color do not use both
+//#define USE_ALT_AUX_MODES
