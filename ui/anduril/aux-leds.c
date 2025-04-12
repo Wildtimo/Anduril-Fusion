@@ -256,8 +256,22 @@ rgb_led_set(result);
 
 
 
+static uint8_t last_color = 0xFF;
+static uint8_t last_mode = 0xFF;
+
 void rgb_led_voltage_readout(uint8_t bright) {
-    uint8_t color = voltage_to_rgb();
+
+    uint8_t mode = cfg.rgb_led_off_mode;
+    
+    if (mode != last_mode) {
+        uint8_t index = ((mode & 0x0F) + 1);
+        index = (index > 7) ? 7 : index;
+        last_color = pgm_read_byte(rgb_led_colors + index);
+        last_mode = mode;
+    }
+
+    uint8_t color = last_color;
+
     if (bright) color = color << 1;
     rgb_led_set(color);
 }
