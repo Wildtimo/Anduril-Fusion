@@ -49,17 +49,10 @@
 
 #define DEFAULT_2C_STYLE 1  // enable 2 click turbo (Anduril 1 style)
 
-#define USE_VERSION_CHECK
 // don't blink while ramping
-#ifdef BLINK_AT_RAMP_FLOOR
-#undef BLINK_AT_RAMP_FLOOR
-#endif
-#ifdef BLINK_AT_RAMP_MIDDLE
-#undef BLINK_AT_RAMP_MIDDLE
-#endif
-#ifdef BLINK_AT_RAMP_CEIL
 #undef BLINK_AT_RAMP_CEIL
-#endif
+#undef BLINK_AT_RAMP_MIDDLE
+#undef BLINK_AT_RAMP_FLOOR
 
 
 #define USE_SIMPLE_UI_RAMPING_TOGGLE
