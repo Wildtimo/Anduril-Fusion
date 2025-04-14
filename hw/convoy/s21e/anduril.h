@@ -64,23 +64,16 @@
 
 #define USE_SIMPLE_UI_RAMPING_TOGGLE
 
-//reboot bug if blink on button so don't enable changing it from main
-//#define DEFAULT_BLINK_CHANNEL  CM_MAIN
-
-//does not look good on this driver and takes alot of space
-//#define USE_SMOOTH_STEPS
+#define USE_SMOOTH_STEPS
 
 #define USE_EXTRA_BATTCHECK_DIGIT
 
-#define USE_SOFT_FACTORY_RESET
 
 // too big, turn off extra features
-#undef USE_TACTICAL_MODE
-//#undef USE_MOMENTARY_MODE
 #undef USE_SOS_MODE
 #undef USE_BEACON_MODE
-//#undef USE_VERSION_CHECK
-
+#undef USE_VERSION_CHECK
+#undef USE_RAMP_SPEED_CONFIG
 
 
 //blinkies
