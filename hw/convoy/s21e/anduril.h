@@ -49,38 +49,24 @@
 
 #define DEFAULT_2C_STYLE 1  // enable 2 click turbo (Anduril 1 style)
 
-#define USE_VERSION_CHECK
 // don't blink while ramping
-#ifdef BLINK_AT_RAMP_FLOOR
-#undef BLINK_AT_RAMP_FLOOR
-#endif
-#ifdef BLINK_AT_RAMP_MIDDLE
-#undef BLINK_AT_RAMP_MIDDLE
-#endif
-#ifdef BLINK_AT_RAMP_CEIL
 #undef BLINK_AT_RAMP_CEIL
-#endif
+#undef BLINK_AT_RAMP_MIDDLE
+#undef BLINK_AT_RAMP_FLOOR
 
 
 #define USE_SIMPLE_UI_RAMPING_TOGGLE
 
-//reboot bug if blink on button so don't enable changing it from main
-//#define DEFAULT_BLINK_CHANNEL  CM_MAIN
-
-//does not look good on this driver and takes alot of space
-//#define USE_SMOOTH_STEPS
+#define USE_SMOOTH_STEPS
 
 #define USE_EXTRA_BATTCHECK_DIGIT
 
-#define USE_SOFT_FACTORY_RESET
 
 // too big, turn off extra features
-#undef USE_TACTICAL_MODE
-//#undef USE_MOMENTARY_MODE
 #undef USE_SOS_MODE
 #undef USE_BEACON_MODE
-//#undef USE_VERSION_CHECK
-
+#undef USE_VERSION_CHECK
+#undef USE_RAMP_SPEED_CONFIG
 
 
 //blinkies

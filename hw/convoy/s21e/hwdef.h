@@ -21,10 +21,9 @@
 
 // channel modes
 // * 0. FET+7135 stacked
-#define NUM_CHANNEL_MODES  2
+#define NUM_CHANNEL_MODES  1
 enum CHANNEL_MODES {
     CM_MAIN = 0,
-    CM_AUX
 };
 
 #define DEFAULT_CHANNEL_MODE  CM_MAIN
