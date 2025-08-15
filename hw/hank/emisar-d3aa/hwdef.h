@@ -39,7 +39,7 @@
  *
  */
 
-#define HWDEF_C  timothy/d3aa/hwdef.c
+#define HWDEF_C  hank/emisar-d3aa/hwdef.c
 
 // allow using aux LEDs as extra channel modes
 #include "fsm/chan-rgbaux.h"
