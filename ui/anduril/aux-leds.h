@@ -67,11 +67,11 @@ const uint8_t RGB_LED_NUM_COLORS = 11
 #ifdef USE_ALT_BUTTON_LED
 
 #ifndef BUTTON_LED_OFF_DEFAULT_MODE
-#define BUTTON_LED_OFF_DEFAULT_MODE 2  // 0 = off, 1 = low, 2 = high
+#define BUTTON_LED_OFF_DEFAULT_MODE 1  // 0 = off, 1 = low, 2 = high
 #endif
 
 #ifndef BUTTON_LED_LOCKOUT_DEFAULT_MODE
-#define BUTTON_LED_LOCKOUT_DEFAULT_MODE 1  // 0 = off, 1 = low, 2 = high
+#define BUTTON_LED_LOCKOUT_DEFAULT_MODE 0  // 0 = off, 1 = low, 2 = high
 #endif
 
 uint8_t button_led_off_mode = BUTTON_LED_OFF_DEFAULT_MODE;

@@ -62,21 +62,21 @@ uint8_t voltage_to_rgb() {
         #ifdef DUAL_VOLTAGE_FLOOR
         // AA / NiMH voltages
          9*dV, 1, // R
-        10*dV, 2, // R+G
-        11*dV, 3, //   G
-        12*dV, 4, //   G+B
-        13*dV, 5, //     B
-        14*dV, 6, // R + B
+        10*dV, 1, // R+G
+        11*dV, 2, //   G
+        12*dV, 2, //   G+B
+        13*dV, 3, //     B
+        14*dV, 3, // R + B
         16*dV, 7, // R+G+B
         20*dV, 0, // black
         #endif
         // li-ion voltages
         29*dV, 1, // R
-        33*dV, 2, // R+G
-        35*dV, 3, //   G
-        37*dV, 4, //   G+B
-        39*dV, 5, //     B
-        41*dV, 6, // R + B
+        33*dV, 1, // R+G
+        35*dV, 2, //   G
+        37*dV, 2, //   G+B
+        39*dV, 3, //     B
+        41*dV, 3, // R + B
         44*dV, 7, // R+G+B  // skip; looks too similar to G+B
           255, 7, // R+G+B
     };
@@ -255,11 +255,45 @@ rgb_led_set(result);
 }
 
 
+#if 0 //not great but works
 
+static uint8_t last_color = 0xFF;
+static uint8_t last_mode = 0xFF;
+
+void rgb_led_voltage_readout(uint8_t bright) {
+
+    uint8_t mode = cfg.rgb_led_off_mode;
+    
+    if (mode != last_mode) {
+        uint8_t index = ((mode & 0x0F) + 1);
+        index = (index > 7) ? 7 : index;
+        last_color = pgm_read_byte(rgb_led_colors + index);
+        last_mode = mode;
+    }
+
+    uint8_t color = last_color;
+
+    if (bright) color = color << 1;
+    rgb_led_set(color);
+}
+#endif
+#if 0 // or just use a set color.
+void rgb_led_voltage_readout(uint8_t bright) {
+    uint8_t color = 0b00000100;  // Green color (from the rgb_led_colors array)
+
+    if (bright) {
+        color = color << 1;
+    }
+    
+    rgb_led_set(color);
+}
+#endif
+// #in 0 // stock version
 void rgb_led_voltage_readout(uint8_t bright) {
     uint8_t color = voltage_to_rgb();
     if (bright) color = color << 1;
     rgb_led_set(color);
 }
+// #endif
 #endif
 

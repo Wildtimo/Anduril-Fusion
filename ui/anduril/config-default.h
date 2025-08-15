@@ -72,9 +72,9 @@
 //  or too short)
 #define MOON_TIMING_HINT  // only applies if B_TIMING_ON == B_PRESS_T
 // short blips while ramping
-#define BLINK_AT_RAMP_MIDDLE
+//#define BLINK_AT_RAMP_MIDDLE
 //#define BLINK_AT_RAMP_FLOOR
-#define BLINK_AT_RAMP_CEIL
+//#define BLINK_AT_RAMP_CEIL
 //#define BLINK_AT_STEPS  // whenever a discrete ramp mode is passed in smooth mode
 
 // Uncomment for Anduril1 "Ramp 2C" behavior:
@@ -209,11 +209,16 @@
 #define USE_SMOOTH_STEPS
 #endif
 // 0 = none, 1 = smooth, 2+ = undefined
-#define DEFAULT_SMOOTH_STEPS_STYLE  1
+#define DEFAULT_SMOOTH_STEPS_STYLE  0
 
 // by default, allow user to set the channel for each strobe-group mode
 // (but allow disabling this feature per build)
-#define USE_CHANNEL_PER_STROBE
+//#define USE_CHANNEL_PER_STROBE
 
 //allow setting the button led independently from aux. (6H in off and lockout)
 //#define USE_ALT_BUTTON_LED
+
+// adds extra blank rgb color do not use both
+//#define USE_ALT_AUX_MODES
+
+#define SIMPLE_UI_ACTIVE 0
