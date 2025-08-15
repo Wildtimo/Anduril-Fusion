@@ -39,7 +39,7 @@
  *
  */
 
-#define HWDEF_C  hank/emisar-d3aa/hwdef.c
+#define HWDEF_C  timothy/d3aa/hwdef.c
 
 // allow using aux LEDs as extra channel modes
 #include "fsm/chan-rgbaux.h"
@@ -85,7 +85,7 @@ enum CHANNEL_MODES {
 
 // IN- NFET
 // pull high to force output to zero to eliminate the startup flash
-#define IN_NFET_DELAY_TIME   12  // (ms)
+#define IN_NFET_DELAY_TIME   0  // (ms)
 #define IN_NFET_ENABLE_PIN   PIN4_bp
 #define IN_NFET_ENABLE_PORT  PORTD_OUT
 
