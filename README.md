@@ -1,6 +1,6 @@
 # Anduril Flashlight Firmware + convoy + lume1/x1 + ALT_BUTTON_LED (optional)
 
-This fork includes the latest anduril version (d3aa support) + convoy s21e + lume1x1 drivers.
+This fork includes (d3aa support) + convoy s21e + lume1x1 drivers.
 
 This fork includes an additional Anduril feature for lights with USE_AUX_RGB_LEDS and USE_BUTTON_LED.
 
@@ -16,6 +16,9 @@ How to Use:
 6H (Six clicks and hold) toggles the button LED mode.
 The button LED state is saved separately for both OFF mode and lockout mode, allowing independent control in each state.
 This provides more customization for lights with both AUX RGB and button LEDs.
+
+
+There's also USE_ALT_AUX_MODES that add a black color before red that does pretty much the same but without all my jank code.
 
 ## Using Anduril
 
